@@ -1,5 +1,6 @@
 # Kanban-Frontend
-A project to learn Vue.js; this is the frontend using Vuetify for the aesthetics
+A project to learn Vue.js; this is the frontend using Vuetify for the aesthetics. \
+This is a task/project management tool inspired by JIRA.
 
 ## Project setup
 ```
