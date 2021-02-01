@@ -1,5 +1,6 @@
-<<<<<<< HEAD
-# firstvue
+# Kanban-Frontend
+A project to learn Vue.js; this is the frontend using Vuetify for the aesthetics
+>>>>>>> 5eab40a2a7e3ad1f1619e67bfbc0a76a89aa84f0
 
 ## Project setup
 ```
@@ -20,10 +21,3 @@ npm run build
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-=======
-# Kanban-Frontend
-A project to learn Vue.js; this is the frontend using Vuetify for the aesthetics
->>>>>>> 5eab40a2a7e3ad1f1619e67bfbc0a76a89aa84f0
