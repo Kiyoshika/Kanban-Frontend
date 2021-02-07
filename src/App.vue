@@ -258,7 +258,7 @@ export default {
 
     logOut: function() {
       // don't want to use push as it will take you back to the application unlogged in
-      this.$router.go('/login');
+      this.$router.push('/login');
       this.$store.commit("setCredentials", '');
     },
 
