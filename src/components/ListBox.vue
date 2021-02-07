@@ -30,7 +30,7 @@ export default {
   mounted() {
     this.$http({
         method: "post",
-        url: "http://localhost:2020/users/" + this.username + "/tasks/fetch",
+        url: "https://simple-project-manager.herokuapp.com/users/" + this.username + "/tasks/fetch",
         headers: {
           "Content-Type": "application/json",
         },

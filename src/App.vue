@@ -170,7 +170,7 @@ export default {
       this.$http({
         method: "post",
         url:
-          "http://localhost:2020/users/" +
+          "https://simple-project-manager.herokuapp.com/users/" +
           this.username +
           "/projectList/add/" +
           newProjectName,
@@ -192,7 +192,7 @@ export default {
       this.$http({
         method: "post",
         url:
-          "http://localhost:2020/users/" +
+          "https://simple-project-manager.herokuapp.com/users/" +
           this.username +
           "/projectList/remove/" +
           projectName,
@@ -214,7 +214,7 @@ export default {
 
       await this.$http({
         method: "post",
-        url: "http://localhost:2020/users/" + this.username + "/tasks/create",
+        url: "https://simple-project-manager.herokuapp.com/users/" + this.username + "/tasks/create",
         headers: {
           "Content-Type": "application/json",
         },
