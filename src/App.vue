@@ -1,105 +1,113 @@
 <template>
-  <div id="app">
-    <v-app>
-      <h1>Kanban Board</h1>
-      <h4>Welcome to the development version of this project manager!</h4>
-      <h4>Note that some things may be broken / not functional in the development version.</h4>
-      <br />
-      <v-container>
-        <v-row>
-          <v-col md="2">
-            <h5>Project List:</h5>
-            <project-list
-              :key="projectListComponentKey"
-              v-bind:username="username"
-              ref="projectList"
-              @selectedProject="getSelectedProject"
-            ></project-list>
-          </v-col>
+    <div id="app">
+      <v-app>
+        <p>Username: {{ username }}</p>
+        <h1>Kanban Board</h1>
+        <h4>Welcome to the development version of this project manager!</h4>
+        <h4>
+          Note that some things may be broken / not functional in the
+          development version.
+        </h4>
+        <br />
+        <v-container>
+          <v-row>
+            <v-col md="2">
+              <h5>Project List:</h5>
+              <project-list
+                :key="projectListComponentKey"
+                v-bind:username="username"
+                ref="projectList"
+                @selectedProject="getSelectedProject"
+              ></project-list>
+            </v-col>
 
-          <v-col md="10">
-            <v-row>
-              <v-toolbar>
-                <dropdown-menu
-                  menuName="Projects"
-                  :menuItems="projectsMenuItems"
-                  @clicked="performAction"
-                ></dropdown-menu>
-                <dropdown-menu
-                  menuName="My Team"
-                  :menuItems="myTeamMenuItems"
-                  @clicked="performAction"
-                ></dropdown-menu>
-                <dropdown-menu
-                  menuName="Tasks"
-                  :menuItems="taskMenuItems"
-                  @clicked="performAction"
-                ></dropdown-menu>
-                <v-spacer></v-spacer>
-              </v-toolbar>
-            </v-row>
-            <v-row>
-              <v-col md="3">
-                <list-box
-                  ref="projectListBox1"
-                  listBoxLabel="Backlog"
-                  :selectedProject="this.selectedProjectName"
-                  :passedUsername="this.username"
-                  :key="listBoxComponentKey"
-                ></list-box>
-              </v-col>
+            <v-col md="10">
+              <v-row>
+                <v-toolbar>
+                  <dropdown-menu
+                    menuName="Projects"
+                    :menuItems="projectsMenuItems"
+                    @clicked="performAction"
+                  ></dropdown-menu>
+                  <dropdown-menu
+                    menuName="My Team"
+                    :menuItems="myTeamMenuItems"
+                    @clicked="performAction"
+                  ></dropdown-menu>
+                  <dropdown-menu
+                    menuName="Tasks"
+                    :menuItems="taskMenuItems"
+                    @clicked="performAction"
+                  ></dropdown-menu>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    class="error"
+                    @click="logOut"
+                    >Log Out</v-btn>
+                </v-toolbar>
+              </v-row>
+              <v-row>
+                <v-col md="3">
+                  <list-box
+                    ref="projectListBox1"
+                    listBoxLabel="Backlog"
+                    :selectedProject="this.selectedProjectName"
+                    :passedUsername="this.username"
+                    :key="listBoxComponentKey"
+                  ></list-box>
+                </v-col>
 
-              <v-col md="3">
-                <list-box
-                  ref="projectListBox2"
-                  listBoxLabel="Scoping"
-                  :selectedProject="this.selectedProjectName"
-                  :passedUsername="this.username"
-                  :key="listBoxComponentKey"
-                ></list-box>
-              </v-col>
+                <v-col md="3">
+                  <list-box
+                    ref="projectListBox2"
+                    listBoxLabel="Scoping"
+                    :selectedProject="this.selectedProjectName"
+                    :passedUsername="this.username"
+                    :key="listBoxComponentKey"
+                  ></list-box>
+                </v-col>
 
-              <v-col md="3">
-                <list-box
-                  ref="projectListBox3"
-                  listBoxLabel="In Development"
-                  :selectedProject="this.selectedProjectName"
-                  :passedUsername="this.username"
-                  :key="listBoxComponentKey"
-                ></list-box>
-              </v-col>
+                <v-col md="3">
+                  <list-box
+                    ref="projectListBox3"
+                    listBoxLabel="In Development"
+                    :selectedProject="this.selectedProjectName"
+                    :passedUsername="this.username"
+                    :key="listBoxComponentKey"
+                  ></list-box>
+                </v-col>
 
-              <v-col md="3">
-                <list-box
-                  ref="projectListBox4"
-                  listBoxLabel="Completed"
-                  :selectedProject="this.selectedProjectName"
-                  :passedUsername="this.username"
-                  :key="listBoxComponentKey"
-                ></list-box>
-              </v-col>
-            </v-row>
-          </v-col>
-        </v-row>
-        <new-project-dialog
-          ref="newProjectDialog"
-          :showDialog="this.showNewProjectDialog"
-          @newProj="createNewProject"
-        ></new-project-dialog>
-        <delete-project-dialog
-          ref="deleteProjectDialog"
-          :showDialog="this.showDeleteProjectDialog"
-          v-bind:projectName="selectedProjectName"
-          @deleteProj="deleteProject"
-        ></delete-project-dialog>
-        <new-task-dialog
-          ref="newTaskDialog"
-          :showDialog="this.showNewTaskDialog"
-          @newTask="createNewTask"
-        ></new-task-dialog>
-      </v-container>
-    </v-app>
-  </div>
+                <v-col md="3">
+                  <list-box
+                    ref="projectListBox4"
+                    listBoxLabel="Completed"
+                    :selectedProject="this.selectedProjectName"
+                    :passedUsername="this.username"
+                    :key="listBoxComponentKey"
+                  ></list-box>
+                </v-col>
+              </v-row>
+            </v-col>
+          </v-row>
+          <new-project-dialog
+            ref="newProjectDialog"
+            :showDialog="this.showNewProjectDialog"
+            @newProj="createNewProject"
+          ></new-project-dialog>
+          <delete-project-dialog
+            ref="deleteProjectDialog"
+            :showDialog="this.showDeleteProjectDialog"
+            v-bind:projectName="selectedProjectName"
+            @deleteProj="deleteProject"
+          ></delete-project-dialog>
+          <new-task-dialog
+            ref="newTaskDialog"
+            :showDialog="this.showNewTaskDialog"
+            @newTask="createNewTask"
+          ></new-task-dialog>
+        </v-container>
+      </v-app>
+    </div>
 </template>
 
 <script>
@@ -128,7 +136,7 @@ export default {
       projectListComponentKey: 0,
       listBoxComponentKey: 0,
 
-      username: "zach",
+      username: this.$username,
 
       taskNameText: "",
       projectsMenuItems: ["New Project", "Delete Project"],
@@ -214,7 +222,10 @@ export default {
 
       await this.$http({
         method: "post",
-        url: "https://simple-project-manager.herokuapp.com/users/" + this.username + "/tasks/create",
+        url:
+          "https://simple-project-manager.herokuapp.com/users/" +
+          this.username +
+          "/tasks/create",
         headers: {
           "Content-Type": "application/json",
         },
@@ -224,6 +235,11 @@ export default {
       // "refresh" listboxes after creating a new task
       this.listBoxComponentKey += 0.0001;
     },
+
+    logOut: function() {
+      document.cookie = "LoginCookie=false";
+      this.$router.push('/');
+    }
   },
 };
 </script>
