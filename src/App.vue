@@ -1,8 +1,9 @@
 <template>
   <div id="app">
     <v-app>
-      <h1>Example Kanban Board</h1>
-      <h4>This is definitely not a bootleg JIRA clone...</h4>
+      <h1>Kanban Board</h1>
+      <h4>Welcome to the development version of this project manager!</h4>
+      <h4>Note that some things may be broken / not functional in the development version.</h4>
       <br />
       <v-container>
         <v-row>
