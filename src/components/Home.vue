@@ -7,11 +7,10 @@
 <script>
 export default {
   mounted() {
-      console.log(document.cookie);
-    if (document.cookie === "LoginCookie=false") {
-      this.$router.push("/login");
-    } else if (document.cookie === "LoginCookie=true") {
-      this.$router.push("/projectManager");
+      if (this.$store.getters.getUsername === '') {
+        this.$router.push("/login")
+      } else if (this.$store.getters.getUsername !== '') {
+        this.$router.push("/projectManager");
     }
   },
 };

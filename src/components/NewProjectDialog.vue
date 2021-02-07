@@ -4,7 +4,6 @@
       <v-dialog v-model="this.dialog" persistent width="400">
         <v-card>
           <v-card-title class="headline"> Create New Project </v-card-title>
-          <v-card-text>Example text to my modal</v-card-text>
           <v-text-field
             class="px-3"
             v-model="projectName"

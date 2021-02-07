@@ -110,7 +110,7 @@ export default {
               // API call to validate user
               this.$http({
                 method: "post",
-                url: "http://localhost:2020/users/login",
+                url: this.$servername + "/users/login",
                 headers: {
                 "Content-Type": "application/json",
                 },
@@ -120,8 +120,7 @@ export default {
                 if (response.data) { // if successful
                     this.isLoggedIn = true;
                     this.loginFail = false;
-                    document.cookie = "LoginCookie=true";
-                    this.$username = this.username;
+                    this.$store.commit("setCredentials", {username: this.username, password: this.password});
                     this.$router.push('/projectManager');
                 } else {
                     this.loginFail = true;
@@ -133,7 +132,7 @@ export default {
               // API call to create new user
               this.$http({
                 method: "post",
-                url: "http://localhost:2020/users/createUser",
+                url: this.$servername + "/users/createUser",
                 headers: {
                 "Content-Type": "application/json",
                 },
@@ -143,7 +142,7 @@ export default {
                 if (response.data) { // if successful
                     this.isLoggedIn = true;
                     this.userExists = false;
-                    document.cookie = "LoginCookie=true";
+                    this.$store.commit("setCredentials", {username: this.username, password: this.password});
                     this.$router.push('/projectManager');
                 } else {
                     this.userExists = true;

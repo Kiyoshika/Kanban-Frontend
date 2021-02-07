@@ -8,7 +8,7 @@
       <div v-for="(tasks, index) in taskData" :key="index">
         <v-list-item v-if="listBoxLabel === tasks.taskStage && tasks.projectName === currentProjectName">
           <v-list-item-content>
-                <v-btn @click="viewTaskData(tasks)" block elevation="2" v-text="tasks.taskName"></v-btn>
+                <v-btn color="indigo lighten-4" @click="viewTaskData(tasks)" block elevation="2" v-text="tasks.taskName"></v-btn>
         </v-list-item-content>
       </v-list-item>
       </div>
@@ -21,7 +21,6 @@ export default {
   name: "listBox",
   props: {
     listBoxLabel: String,
-    passedUsername: String,
     selectedProject: String,
     //currentProjectName: String,
     currentListIndex: Number
@@ -30,12 +29,12 @@ export default {
   mounted() {
     this.$http({
         method: "post",
-        url: "https://simple-project-manager.herokuapp.com/users/" + this.username + "/tasks/fetch",
+        url: this.$servername + "/tasks/fetch",
         headers: {
           "Content-Type": "application/json",
         },
         // passing current username as "authentication" for the request
-      data: this.username
+      data: {"username": this.$store.getters.getUsername, "password": this.$store.getters.getPassword}
     }).then(response => {
       this.taskData = response.data;
       //this.taskData.push([]);
@@ -45,14 +44,14 @@ export default {
   data() {
     return {
       taskData: [],
-      username: this.passedUsername,
+      username: '',
       currentProjectName: this.selectedProject
     };
   },
 
   methods: {
     viewTaskData: function(taskObject) {
-      console.log(taskObject)
+      this.$emit('clicked', taskObject);
     }
   }
 };

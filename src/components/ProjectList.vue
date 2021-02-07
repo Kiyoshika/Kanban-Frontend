@@ -20,25 +20,24 @@
 
 <script>
 export default {
-  props: {
-    username: String,
-  },
 
   mounted: function() {
+      this.username = this.$store.getters.getUsername;
+
       this.$http({
       method: "post",
-      url: "https://simple-project-manager.herokuapp.com/users/" + this.userName + "/projectList",
+      url: this.$servername + "/projectList",
       headers: {
-        "Content-Type": "text/plain",
+        "Content-Type": "application/json",
       },
       // passing username as "authentication" for the request
-      data: this.userName,
+      data: {"username":this.$store.getters.getUsername, "password": this.$store.getters.getPassword},
     }).then((response) => (this.projectList = response.data));
   },
 
   data() {
     return {
-      userName: this.username,
+      username: '',
       projectSelected: false,
       lastProjectSelected: '',
       projectList: [],

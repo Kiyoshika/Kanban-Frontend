@@ -12,7 +12,8 @@ Vue.use(Vuex)
 Vue.use(VueRouter)
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
-Vue.prototype.$username = ''
+//Vue.prototype.$servername = 'http://localhost:2020'
+Vue.prototype.$servername = 'https://simple-project-manager.herokuapp.com/'
 
 const routes = [
   { path: '/', component: Home },
