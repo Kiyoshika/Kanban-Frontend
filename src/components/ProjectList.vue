@@ -24,13 +24,14 @@ export default {
     username: String,
   },
 
-  mounted() {
-    this.$http({
+  mounted: function() {
+      this.$http({
       method: "post",
       url: "http://localhost:2020/users/" + this.userName + "/projectList",
       headers: {
         "Content-Type": "text/plain",
       },
+      // passing username as "authentication" for the request
       data: this.userName,
     }).then((response) => (this.projectList = response.data));
   },
@@ -38,13 +39,23 @@ export default {
   data() {
     return {
       userName: this.username,
+      projectSelected: false,
+      lastProjectSelected: '',
       projectList: [],
     };
   },
 
   methods: {
     selectProject(projectName) {
-      this.$emit("selectedProject", projectName);
+      // if a project is currently selected and you select again: "disable" the selection
+      if (this.projectSelected === true && this.lastProjectSelected === projectName) {
+        this.projectSelected = false;
+        this.$emit("selectedProject", "")
+      } else {
+        this.$emit("selectedProject", projectName);
+        this.projectSelected = true;
+        this.lastProjectSelected = projectName;
+      }
     },
   },
 };

@@ -5,12 +5,10 @@
         <v-toolbar-title>{{ listBoxLabel }}</v-toolbar-title>
       </v-toolbar>
 
-      <div v-for="projName in projectData.projects" :key="projName.projectName">
-        <v-list-item v-if="projName.projectName === currentProjectName">
+      <div v-for="(tasks, index) in taskData" :key="index">
+        <v-list-item v-if="listBoxLabel === tasks.taskStage && tasks.projectName === currentProjectName">
           <v-list-item-content>
-            <div v-for="projectItemName in projName.projectItems[currentListIndex]" :key="projectItemName">
-                <v-btn block elevation="2" v-text="projectItemName"></v-btn>
-            </div>
+                <v-btn @click="viewTaskData(tasks)" block elevation="2" v-text="tasks.taskName"></v-btn>
         </v-list-item-content>
       </v-list-item>
       </div>
@@ -23,32 +21,40 @@ export default {
   name: "listBox",
   props: {
     listBoxLabel: String,
+    passedUsername: String,
+    selectedProject: String,
     //currentProjectName: String,
     currentListIndex: Number
   },
+
+  mounted() {
+    this.$http({
+        method: "post",
+        url: "http://localhost:2020/users/" + this.username + "/tasks/fetch",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // passing current username as "authentication" for the request
+      data: this.username
+    }).then(response => {
+      this.taskData = response.data;
+      //this.taskData.push([]);
+    });
+  },
+
   data() {
     return {
-      projectData: {
-        "projects": [
-          {"projectName": "Project A", "projectItems": [
-            ["Backlog A", "Backlog B"], // backlog
-            ["Scoping A", "Scoping B", "Scoping C"], // scoping
-            ["InDev A", "InDev B", "InDev C"], // in development
-            ["Completed A", "Completed B", "Completed C"], // completed
-          ]},
-
-          {"projectName": "Project B", "projectItems": [
-            ["Backlog A", "Backlog B", "Backlog C", "Backlog D"], // backlog
-            ["Scoping A"], // scoping
-            ["InDev A", "InDev B"], // in development
-            ["Completed A", "Completed B", "Completed C", "Completed D"], // completed
-          ]}
-        ]
-      },
-
-      currentProjectName: ''
+      taskData: [],
+      username: this.passedUsername,
+      currentProjectName: this.selectedProject
     };
   },
+
+  methods: {
+    viewTaskData: function(taskObject) {
+      console.log(taskObject)
+    }
+  }
 };
 </script>
 

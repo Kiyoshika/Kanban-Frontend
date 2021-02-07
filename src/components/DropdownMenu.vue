@@ -45,6 +45,10 @@ export default {
                 case "Delete Project":
                     this.$emit('clicked', "Delete Project");
                     break;
+
+                case "Create New Task":
+                    this.$emit('clicked', "Create New Task")
+                    break;
             }
         }
     }
