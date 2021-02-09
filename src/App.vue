@@ -177,7 +177,6 @@ export default {
           break;
 
         case "Delete Project": // open dialog to confirm removal of project
-          console.log(this.selectedProjectName);
           if (this.selectedProjectName !== '') {
             this.$refs.deleteProjectDialog.dialog = true;
           }
@@ -195,8 +194,8 @@ export default {
       this.listBoxComponentKey += 0.0001;
     },
 
-    createNewProject(newProjectName) {
-      this.$http({
+    async createNewProject(newProjectName) {
+      await this.$http({
         method: "post",
         url:
           this.$servername + "/projectList/add/" +
@@ -215,8 +214,8 @@ export default {
       this.listBoxComponentKey += 0.0001;
     },
 
-    deleteProject(projectName) {
-      this.$http({
+    async deleteProject(projectName) {
+      await this.$http({
         method: "post",
         url:
           this.$servername +
